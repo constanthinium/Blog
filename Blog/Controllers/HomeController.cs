@@ -58,5 +58,12 @@ namespace Blog.Controllers
             HttpContext.SignOutAsync();
             return RedirectToAction("Login", "Account");
         }
+
+        public IActionResult ChangePassword(int id, string password)
+        {
+            db.Users.Find(id).Password = password;
+            db.SaveChanges();
+            return RedirectToAction("Index", "Home");
+        }
     }
 }
