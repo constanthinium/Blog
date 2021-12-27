@@ -1,15 +1,17 @@
-﻿@{
+﻿@model Blog.Models.User
+
+@{
     ViewData["Title"] = "Профиль";
 }
 
 <div class="text-center">
-    <h1 class="display-4">Добро пожаловать, @Model</h1>
+    <h1 class="display-4">Добро пожаловать, @Model.Email</h1>
 </div>
 
-<form asp-action="ChangeEmail" asp-controller="Home" asp-anti-forgery="true">
+<form asp-action="ChangeEmail" asp-controller="Home">
     <label>Введите Email</label>
-    <input type="hidden" value="@Model" name="oldEmail" />
+    <input type="hidden" value="@Model.Email" name="oldEmail" />
     <input type="text" name="email" />
     <input type="submit" value="Изменить" class="btn btn-outline-dark" />
-    <span>Чтобы изменения вступили в силу, выйдите из аккаунта</span>
+    <span>Чтобы изменения вступили в силу, вам придется войти в аккаунт еще раз</span>
 </form>

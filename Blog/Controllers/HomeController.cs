@@ -26,8 +26,8 @@ namespace Blog.Controllers
         {
             if (User.Identity.IsAuthenticated)
             {
-                ViewData.Model = User.Identity.Name;
-                return View();
+                var user = db.Users.Where(u => u.Email == User.Identity.Name).First();
+                return View(user);
             }
             else
             {
@@ -50,7 +50,7 @@ namespace Blog.Controllers
         {
             db.Users.Where(u => u.Email == oldEmail).First().Email = email;
             db.SaveChanges();
-            return RedirectToAction("Index", "Home");
+            return Logout();
         }
 
         public IActionResult Logout()
