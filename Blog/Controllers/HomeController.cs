@@ -13,17 +13,20 @@ namespace Blog.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private BlogContext db;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, BlogContext db)
         {
             _logger = logger;
+            this.db = db;
         }
 
         public IActionResult Index()
         {
             if (User.Identity.IsAuthenticated)
             {
-                return Content(User.Identity.Name);
+                ViewData.Model = User.Identity.Name;
+                return View();
             }
             else
             {
@@ -40,6 +43,13 @@ namespace Blog.Controllers
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
+
+        public IActionResult ChangeEmail(string oldEmail, string email)
+        {
+            db.Users.Where(u => u.Email == oldEmail).First().Email = email;
+            db.SaveChanges();
+            return RedirectToAction("Index", "Home");
         }
     }
 }

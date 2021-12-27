@@ -1,8 +1,15 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Профиль";
 }
 
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <h1 class="display-4">Добро пожаловать, @Model</h1>
 </div>
+
+<form asp-action="ChangeEmail" asp-controller="Home" asp-anti-forgery="true">
+    <label>Введите Email</label>
+    <input type="hidden" value="@Model" name="oldEmail" />
+    <input type="text" name="email" />
+    <input type="submit" value="Изменить" class="btn btn-outline-dark" />
+    <span>Чтобы изменения вступили в силу, выйдите из аккаунта</span>
+</form>
