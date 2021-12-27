@@ -10,7 +10,7 @@
 
 <form asp-action="ChangeEmail" asp-controller="Home">
     <label>Введите Email</label>
-    <input type="hidden" value="@Model.Email" name="oldEmail" />
+    <input type="hidden" value="@Model.Id" name="id" />
     <input type="text" name="email" />
     <input type="submit" value="Изменить" class="btn btn-outline-dark" />
     <span>Чтобы изменения вступили в силу, вам придется войти в аккаунт еще раз</span>

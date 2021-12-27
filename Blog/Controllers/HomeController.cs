@@ -46,9 +46,9 @@ namespace Blog.Controllers
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
 
-        public IActionResult ChangeEmail(string oldEmail, string email)
+        public IActionResult ChangeEmail(int id, string email)
         {
-            db.Users.Where(u => u.Email == oldEmail).First().Email = email;
+            db.Users.Find(id).Email = email;
             db.SaveChanges();
             return Logout();
         }
