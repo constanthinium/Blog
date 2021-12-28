@@ -35,11 +35,20 @@
 </form>
 
 <h2>Мои посты</h2>
-<ul>
-    @foreach (var item in Model.Posts)
-    {
-        <li class="p-3 mb-2 bg-primary text-white">
-            @Html.DisplayFor(modelItem => item.Text)
-        </li>
-    }
-</ul>
+<table>
+    <tbody>
+        @foreach (var item in Model.Posts)
+        {
+            <tr>
+                <td class="p-3 mb-2 bg-primary text-white">
+                    @Html.DisplayFor(modelItem => item.Text)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id">Изменить</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id">Удалить</a>
+                </td>
+            </tr>
+            <tr class="spacer" style="height: 16px"></tr>
+        }
+    </tbody>
+</table>

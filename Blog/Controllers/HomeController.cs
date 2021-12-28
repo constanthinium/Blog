@@ -70,5 +70,12 @@ namespace Blog.Controllers
             db.SaveChanges();
             return RedirectToAction("Index", "Home");
         }
+
+        public IActionResult Delete(int id)
+        {
+            db.Posts.Remove(db.Posts.Find(id));
+            db.SaveChanges();
+            return RedirectToAction(nameof(Index));
+        }
     }
 }
