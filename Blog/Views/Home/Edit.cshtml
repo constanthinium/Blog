@@ -1,0 +1,8 @@
+﻿@model Blog.Models.Post
+
+<form asp-controller="Home" asp-action="Edit" method="post">
+    <div>
+        <textarea name="text">@Model.Text</textarea>
+    </div>
+    <input type="submit" value="Сохранить" class="btn btn-success" />
+</form>

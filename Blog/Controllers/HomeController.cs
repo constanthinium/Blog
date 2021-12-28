@@ -77,5 +77,18 @@ namespace Blog.Controllers
             db.SaveChanges();
             return RedirectToAction(nameof(Index));
         }
+
+        public IActionResult Edit(int id)
+        {
+            return View(db.Posts.Find(id));
+        }
+
+        [HttpPost]
+        public IActionResult Edit(int id, string text)
+        {
+            db.Posts.Find(id).Text = text;
+            db.SaveChanges();
+            return RedirectToAction(nameof(Index));
+        }
     }
 }
