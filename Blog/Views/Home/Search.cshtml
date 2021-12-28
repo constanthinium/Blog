@@ -3,7 +3,10 @@
 <h1>Поиск</h1>
 
 <ul>
-@foreach(var user in Model) {
-    <li>@user.Email</li>
-}
+    @foreach (var user in Model)
+    {
+        <li>
+            <a asp-action="Profile" asp-route-id="@user.Id">@user.Email</a>
+        </li>
+    }
 </ul>

@@ -96,5 +96,10 @@ namespace Blog.Controllers
             if (name == null) return RedirectToAction(nameof(Index));
             else return View(db.Users.Where(u => u.Email.Contains(name)));
         }
+
+        public IActionResult Profile(int id)
+        {
+            return View(db.Users.Include(u => u.Posts).First(u => u.Id == id));
+        }
     }
 }
