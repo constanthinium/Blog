@@ -90,5 +90,11 @@ namespace Blog.Controllers
             db.SaveChanges();
             return RedirectToAction(nameof(Index));
         }
+
+        public IActionResult Search(string name)
+        {
+            if (name == null) return RedirectToAction(nameof(Index));
+            else return View(db.Users.Where(u => u.Email.Contains(name)));
+        }
     }
 }

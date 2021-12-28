@@ -1,0 +1,9 @@
+﻿@model IEnumerable<Blog.Models.User>
+
+<h1>Поиск</h1>
+
+<ul>
+@foreach(var user in Model) {
+    <li>@user.Email</li>
+}
+</ul>
