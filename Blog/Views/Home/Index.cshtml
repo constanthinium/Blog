@@ -22,3 +22,24 @@
     <input type="password" name="password" />
     <input type="submit" value="Изменить" class="btn btn-outline-dark" />
 </form>
+
+<form asp-controller="Home" asp-action="Post">
+    <div>Создать новый пост</div>
+    <input type="hidden" value="@Model.Id" name="userId" />
+    <div>
+        <textarea name="text"></textarea>
+    </div>
+    <div>
+        <input type="submit" value="Опубликовать" class="btn btn-success" />
+    </div>
+</form>
+
+<h2>Мои посты</h2>
+<ul>
+    @foreach (var item in Model.Posts)
+    {
+        <li class="p-3 mb-2 bg-primary text-white">
+            @Html.DisplayFor(modelItem => item.Text)
+        </li>
+    }
+</ul>

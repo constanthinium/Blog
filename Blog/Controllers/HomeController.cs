@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
@@ -24,15 +25,12 @@ namespace Blog.Controllers
 
         public IActionResult Index()
         {
-            if (User.Identity.IsAuthenticated)
-            {
-                var user = db.Users.Where(u => u.Email == User.Identity.Name).First();
-                return View(user);
-            }
-            else
-            {
+            if (!User.Identity.IsAuthenticated)
                 return RedirectToAction("Login", "Account");
-            }
+
+            var user = db.Users.Where(u => u.Email == User.Identity.Name)
+                .Include(u => u.Posts).First();
+            return View(user);
         }
 
         public IActionResult Privacy()
@@ -62,6 +60,13 @@ namespace Blog.Controllers
         public IActionResult ChangePassword(int id, string password)
         {
             db.Users.Find(id).Password = password;
+            db.SaveChanges();
+            return RedirectToAction("Index", "Home");
+        }
+
+        public IActionResult Post(string text, int userId)
+        {
+            db.Posts.Add(new Post(text, userId));
             db.SaveChanges();
             return RedirectToAction("Index", "Home");
         }
