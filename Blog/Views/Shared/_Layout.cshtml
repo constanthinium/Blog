@@ -21,12 +21,15 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Logout">Выйти</a>
                         </li>
-                        <il>
-                            <form asp-controller="Home" asp-action="Search">
-                                <input name="name" placeholder="Имя пользователя" />
-                                <input type="submit" class="btn btn-success" value="Найти" />
-                            </form>
-                        </il>
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <li>
+                                <form asp-controller="Home" asp-action="Search">
+                                    <input name="name" placeholder="Имя пользователя" />
+                                    <input type="submit" class="btn btn-success" value="Найти" />
+                                </form>
+                            </li>
+                        }
                     </ul>
                 </div>
             </div>
