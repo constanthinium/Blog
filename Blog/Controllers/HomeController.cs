@@ -104,7 +104,7 @@ namespace Blog.Controllers
 
         public IActionResult Admin()
         {
-            return View();
+            return View(db.Model.GetEntityTypes());
         }
     }
 }

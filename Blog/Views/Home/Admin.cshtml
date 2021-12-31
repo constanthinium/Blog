@@ -1,5 +1,18 @@
-﻿@{
+﻿@using Microsoft.EntityFrameworkCore
+@model IEnumerable<Microsoft.EntityFrameworkCore.Metadata.IEntityType>
+
+@{
     ViewData["Title"] = "Админ";
 }
 
 <h1>Админ</h1>
+
+<h5>Список таблиц</h5>
+<ul>
+    @foreach (var item in @Model)
+    {
+        <li>
+            @item.GetTableName()
+        </li>
+    }
+</ul>
