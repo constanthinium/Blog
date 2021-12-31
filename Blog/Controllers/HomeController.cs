@@ -101,5 +101,10 @@ namespace Blog.Controllers
         {
             return View(db.Users.Include(u => u.Posts).First(u => u.Id == id));
         }
+
+        public IActionResult Admin()
+        {
+            return View();
+        }
     }
 }

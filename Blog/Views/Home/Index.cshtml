@@ -4,11 +4,16 @@
     ViewData["Title"] = "Профиль";
 }
 
+@if (Model.Admin)
+{
+    <a asp-action="Admin">Админ</a>
+}
+
 <div class="text-center">
     <h1 class="display-4">Добро пожаловать, @Model.Email</h1>
 </div>
 
-<form asp-controller="Home" asp-action="ChangeEmail">
+<form asp-action="ChangeEmail">
     <label>Введите Email</label>
     <input type="hidden" value="@Model.Id" name="id" />
     <input type="text" name="email" />
@@ -16,14 +21,14 @@
     <span>Чтобы изменения вступили в силу, вам придется войти в аккаунт еще раз</span>
 </form>
 
-<form asp-controller="Home" asp-action="ChangePassword">
+<form asp-action="ChangePassword">
     <label>Введите пароль</label>
     <input type="hidden" value="@Model.Id" name="id" />
     <input type="password" name="password" />
     <input type="submit" value="Изменить" class="btn btn-outline-dark" />
 </form>
 
-<form asp-controller="Home" asp-action="Post">
+<form asp-action="Post">
     <div>Создать новый пост</div>
     <input type="hidden" value="@Model.Id" name="userId" />
     <div>
