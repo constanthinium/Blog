@@ -1,5 +1,5 @@
 ﻿@using Microsoft.EntityFrameworkCore
-@model IEnumerable<Microsoft.EntityFrameworkCore.Metadata.IEntityType>
+@model Tuple<IEnumerable<Microsoft.EntityFrameworkCore.Metadata.IEntityType>, string>
 
 @{
     ViewData["Title"] = "Админ";
@@ -9,10 +9,19 @@
 
 <h5>Список таблиц</h5>
 <ul>
-    @foreach (var item in @Model)
+    @foreach (var item in @Model.Item1)
     {
         <li>
             @item.GetTableName()
         </li>
     }
 </ul>
+
+<h5>Выполнение запросов</h5>
+<form asp-action="Query">
+    <textarea style="font-family: monospace" name="query"></textarea>
+    <br />
+    <input type="submit" value="Выполнить" class="btn btn-success" />
+</form>
+
+<pre>@Model.Item2</pre>

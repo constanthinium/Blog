@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace Blog.Controllers
@@ -102,9 +103,43 @@ namespace Blog.Controllers
             return View(db.Users.Include(u => u.Posts).First(u => u.Id == id));
         }
 
-        public IActionResult Admin()
+        public IActionResult Admin(string result = "")
         {
-            return View(db.Model.GetEntityTypes());
+            return View(Tuple.Create(db.Model.GetEntityTypes(), result));
+        }
+
+        public IActionResult Query(string query)
+        {
+            try
+            {
+                var conn = db.Database.GetDbConnection();
+                conn.Open();
+                var command = conn.CreateCommand();
+                command.CommandText = query;
+                var reader = command.ExecuteReader();
+                var builder = new StringBuilder();
+                for (int i = 0; i < reader.FieldCount; i++)
+                {
+                    builder.Append(reader.GetName(i));
+                    builder.Append('\t');
+                }
+                builder.AppendLine();
+                while (reader.Read())
+                {
+                    for (int i = 0; i < reader.FieldCount; i++)
+                    {
+                        var data = reader[i];
+                        builder.Append(data.ToString());
+                        builder.Append('\t');
+                    }
+                    builder.AppendLine();
+                }
+                return RedirectToAction(nameof(Admin), routeValues: new { result = builder.ToString() });
+            }
+            catch
+            {
+                return RedirectToAction(nameof(Admin));
+            }
         }
     }
 }
