@@ -103,3 +103,13 @@ body {
 h2{
     text-align:center;
 }
+
+.registration-content {
+    background: linear-gradient(to top left, powderblue, pink);
+    width: 400px;
+    height: 350px;
+    padding: 44px 55px 33px 33px;
+    border-radius: 10px;
+    margin: 0 auto;
+    position: relative;
+}
